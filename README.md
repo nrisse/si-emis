@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/524909318.svg)](https://zenodo.org/doi/10.5281/zenodo.10533863)
+
 # Sea Ice Microwave Emissivity Repository (`si-emis`)
 
 This repository contains the code associated with the manuscript titled, 
