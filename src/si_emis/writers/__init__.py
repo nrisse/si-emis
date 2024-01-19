@@ -1,0 +1,1 @@
+from lizard.writers.figure_to_file import write_figure

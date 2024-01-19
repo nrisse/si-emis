@@ -1,0 +1,120 @@
+'00':
+  general:
+    flight_id: AFLUX_P5_RF15
+    outfile: pamtra_sat_AFLUX_P5_RF15_00.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: VH
+    add_obs_height_to_layer: false
+    gas_mod: R98
+    emissivity: 0
+  surface:
+    kind: natural
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'01':
+  general:
+    flight_id: AFLUX_P5_RF15
+    outfile: pamtra_sat_AFLUX_P5_RF15_01.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: VH
+    add_obs_height_to_layer: false
+    gas_mod: R98
+    emissivity: 0
+  surface:
+    kind: natural
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'02':
+  general:
+    flight_id: AFLUX_P5_RF15
+    outfile: pamtra_sat_AFLUX_P5_RF15_02.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: false
+    gas_mod: R98
+    emissivity: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'03':
+  general:
+    flight_id: AFLUX_P5_RF15
+    outfile: pamtra_sat_AFLUX_P5_RF15_03.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: false
+    gas_mod: R98
+    emissivity: 1
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'04':
+  general:
+    flight_id: AFLUX_P5_RF15
+    outfile: pamtra_sat_AFLUX_P5_RF15_04.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: false
+    gas_mod: R98
+    emissivity: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'05':
+  general:
+    flight_id: AFLUX_P5_RF15
+    outfile: pamtra_sat_AFLUX_P5_RF15_05.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: false
+    gas_mod: R98
+    emissivity: 1
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S

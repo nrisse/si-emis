@@ -1,0 +1,810 @@
+'00':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_00.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: VH
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: 0
+  surface:
+    kind: natural
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'01':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_01.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: VH
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: 0
+  surface:
+    kind: natural
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'02':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_02.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'03':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_03.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: -8
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'04':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_04.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 8
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'05':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_05.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: -2
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'06':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_06.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: 2
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'07':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_07.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: -5
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+08:
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_08.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: 5
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+09:
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_09.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'10':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_10.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: -8
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'11':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_11.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 8
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'12':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_12.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 0
+    temp: -2
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'13':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_13.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 0
+    temp: 2
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'14':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_14.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: -5
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'15':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_15.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: 5
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: L
+    land_model: TELSEM2
+    land_refl: L
+    sea_ice_model: TELSEM2
+    sea_ice_refl: L
+'16':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_16.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'17':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_17.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: -8
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'18':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_18.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 8
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'19':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_19.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: -2
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'20':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_20.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: 2
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'21':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_21.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: -5
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'22':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_22.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 0
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: 5
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'23':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_23.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'24':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_24.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: -8
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'25':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_25.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 8
+    temp: 0
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'26':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_26.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 0
+    temp: -2
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'27':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_27.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 0
+    temp: 2
+    relhum: 0
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'28':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_28.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: -5
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S
+'29':
+  general:
+    flight_id: AFLUX_P5_RF08
+    times:
+    - - 2019-03-31 10:20:00
+      - 2019-03-31 11:51:00
+    outfile: pamtra_AFLUX_P5_RF08_29.nc
+  nmlSet:
+    creator: Nils Risse
+    active: false
+    passive: true
+    outpol: V
+    add_obs_height_to_layer: true
+    gas_mod: R98
+    emissivity: 1
+  offset:
+    groundtemp: 0
+    temp: 0
+    relhum: 5
+  surface:
+    kind: idealized
+    ocean_model: TESSEM2
+    ocean_refl: S
+    land_model: TELSEM2
+    land_refl: S
+    sea_ice_model: TELSEM2
+    sea_ice_refl: S

@@ -1,0 +1,587 @@
+# sources of atmospheric profiles for each flight
+ACLOUD_P5_RF04:
+  comment: 'no dropsonde available'
+  dsd: null
+  nbm:
+  - - ACLOUD_P5_RF04_ld01
+    - 9999
+    - 690
+  rsd:
+  - - radiosonde_ny_alesund_201705231259
+    - 690
+    - 0
+ACLOUD_P5_RF05:
+  comment: 'only high-level segments: do not use noseboom'
+  dsd: 
+  - - ACLOUD_P5_RF05_04
+    - 9999
+    - 750
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201705251049
+    - 750
+    - 0
+ACLOUD_P5_RF06:
+  comment: 'only high-level segments: do not use noseboom'
+  dsd: 
+  - - ACLOUD_P5_RF06_01
+    - 9999
+    - 720
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201705270649
+    - 720
+    - 0
+ACLOUD_P5_RF07:
+  comment: 'only high-level segments: do not use noseboom'
+  dsd: 
+  - - ACLOUD_P5_RF07_02  # D20170527_145602 has no altitude values
+    - 9999
+    - 720
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201705271248
+    - 720
+    - 0
+ACLOUD_P5_RF08:
+  comment: 'no dropsondes available'
+  dsd: null
+  nbm:
+  - - ACLOUD_P5_RF08_ld01
+    - 9999
+    - 700
+  rsd:
+  - - radiosonde_ny_alesund_201705290647
+    - 700
+    - 0
+ACLOUD_P5_RF10:
+  comment: 'no dropsondes over sea ice available'
+  dsd: null
+  nbm:
+  - - ACLOUD_P5_RF10_la01
+    - 920
+    - 680
+  - - ACLOUD_P5_RF10_sa03
+    - 9999
+    - 920
+  rsd:
+  - - radiosonde_ny_alesund_201705311317
+    - 680
+    - 0
+ACLOUD_P5_RF11:
+  comment: 'only high level segments'
+  dsd:
+  - - ACLOUD_P5_RF11_01
+    - 9999
+    - 760
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201706020649
+    - 760
+    - 0
+ACLOUD_P5_RF13:
+  comment: 'no dropsondes available'
+  dsd: null
+  nbm: 
+  - - ACLOUD_P5_RF13_ld01
+    - 930
+    - 700
+  - - ACLOUD_P5_RF13_ss01_d01
+    - 9999
+    - 930
+  rsd:
+  - - radiosonde_ny_alesund_201706051248
+    - 700
+    - 0
+ACLOUD_P5_RF14:
+  comment: ''
+  dsd: 
+  - - ACLOUD_P5_RF14_05
+    - 9999
+    - 750
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201706080650
+    - 750
+    - 0
+ACLOUD_P5_RF15:
+  comment: 'dropsonde not on PANGAEA'
+  dsd: null
+  #- - D20170609_083655
+  #  - 9999
+  #  - 770
+  nbm: null
+  rsd: 
+  - - radiosonde_ny_alesund_201706090648
+    - 9999
+    - 0
+ACLOUD_P5_RF16:
+  comment: 'no sea ice, can be used to look at water emissivity, but very cloudy'
+  dsd: null
+  nbm: null
+  rsd: 
+  - - radiosonde_ny_alesund_201706131255
+    - 9999
+    - 0
+ACLOUD_P5_RF17:
+  comment: ''
+  dsd:
+  - - ACLOUD_P5_RF17_02
+    - 9999
+    - 750
+  nbm:
+  - - ACLOUD_P5_RF17_ld01
+    - 750
+    - 690
+  rsd:
+  - - radiosonde_ny_alesund_201706141304
+    - 690
+    - 0
+ACLOUD_P5_RF18:
+  comment: 'only high-level segments'
+  dsd:
+  - - ACLOUD_P5_RF18_05
+    - 9999
+    - 750
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201706160647
+    - 750
+    - 0
+ACLOUD_P5_RF19:
+  comment: 'only high-level segments'
+  dsd:
+  - - ACLOUD_P5_RF19_01
+    - 9999
+    - 680
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201706171247
+    - 680
+    - 0
+ACLOUD_P5_RF20:
+  comment: ''
+  dsd:
+  - - ACLOUD_P5_RF20_01
+    - 9999
+    - 740
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201706181258
+    - 740
+    - 0
+ACLOUD_P5_RF21:
+  comment: 'no dropsondes over sea ice'
+  dsd: null
+  nbm: 
+  - - ACLOUD_P5_RF21_ld01
+    - 9999
+    - 710
+  rsd:
+  - - radiosonde_ny_alesund_201706200707
+    - 710
+    - 0
+ACLOUD_P5_RF22:
+  comment: 'only above ny alesund'
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201706231245
+    - 9999
+    - 0
+ACLOUD_P5_RF23:
+  comment: 'nose boom may be too warm at surface, dsd only below aircraft'
+  dsd:
+  - - ACLOUD_P5_RF23_02
+    - 9999
+    - 1000
+  nbm:
+  - - ACLOUD_P5_RF23_ld01
+    - 1000
+    - 700
+  rsd:
+  - - radiosonde_ny_alesund_201706251300
+    - 700
+    - 0
+ACLOUD_P5_RF25:
+  comment: 'no dropsonde avail.'
+  dsd: null
+  nbm:
+  - - ACLOUD_P5_RF25_la01
+    - 9999
+    - 690
+  rsd:
+  - - radiosonde_ny_alesund_201706261259
+    - 690
+    - 0
+AFLUX_P5_RF02:
+  comment: 'test flight. noseboom data file problematic - maybe better file on 
+  PANGAEA soon'
+  dsd:
+  - - AFLUX_P5_RF02_01
+    - 9999
+    - 700
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201903211213
+    - 700
+    - 0
+AFLUX_P5_RF03:
+  comment: 'no dropsonde available'
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF03_ld01
+    - 9999
+    - 650
+  rsd:
+  - - radiosonde_ny_alesund_201903211213
+    - 680
+    - 0
+AFLUX_P5_RF04:
+  comment: ''
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF04_ld01
+    - 9999
+    - 650
+  rsd:
+  - - radiosonde_ny_alesund_201903231146
+    - 680
+    - 0
+AFLUX_P5_RF05:
+  comment: ''
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF05_ld01
+    - 9999
+    - 670
+  rsd:
+  - - radiosonde_ny_alesund_201903241146
+    - 670
+    - 0
+AFLUX_P5_RF06:
+  comment: ''
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF06_ld01
+    - 9999
+    - 670
+  rsd:
+  - - radiosonde_ny_alesund_201903251150
+    - 670
+    - 0
+AFLUX_P5_RF07:
+  comment: ''
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF07_md
+    - 9999
+    - 680
+  rsd:
+  - - radiosonde_ny_alesund_201903301153
+    - 680
+    - 0
+AFLUX_P5_RF08:
+  comment: ''
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF08_ld01
+    - 9999
+    - 670
+  rsd:
+  - - radiosonde_ny_alesund_201903311247
+    - 670
+    - 0
+AFLUX_P5_RF09:
+  comment: 'dropsonde over sea ice area'
+  dsd:
+  - - AFLUX_P5_RF09_04
+    - 9999
+    - 740
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201904011254
+    - 740
+    - 0
+AFLUX_P5_RF10:
+  comment: ''
+  dsd:
+  - - AFLUX_P5_RF10_03
+    - 9999
+    - 690
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_201904031249
+    - 690
+    - 0
+AFLUX_P5_RF11:
+  comment: 'no dropsonde available'
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF11_ld01
+    - 9999
+    - 700
+  rsd:
+  - - radiosonde_ny_alesund_201904041256
+    - 700
+    - 0
+AFLUX_P5_RF12:
+  comment: 'no dropsonde available'
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF12_ld01
+    - 9999
+    - 710
+  rsd:
+  - - radiosonde_ny_alesund_201904061255
+    - 710
+    - 0
+AFLUX_P5_RF13:
+  comment: 'no dropsonde available'
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF13_st01_d01
+    - 820
+    - 710
+  - - AFLUX_P5_RF13_st01_d03
+    - 9999
+    - 820
+  rsd:
+  - - radiosonde_ny_alesund_201904071247
+    - 710
+    - 0
+AFLUX_P5_RF14:
+  comment: 'no dropsonde available'
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF14_ld01
+    - 9999
+    - 710
+  rsd:
+  - - radiosonde_ny_alesund_201904081254
+    - 710
+    - 0
+AFLUX_P5_RF15:
+  comment: 'nose boom may be colder and dryer than later parts of the flight'
+  dsd: null
+  nbm:
+  - - AFLUX_P5_RF15_ld01
+    - 9999
+    - 710
+  rsd:
+  - - radiosonde_ny_alesund_201904111257
+    - 710
+    - 0
+MOSAiC-ACA_P5_RF02:
+  comment: 'test flight'
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+MOSAiC-ACA_P5_RF03:
+  comment: 'test flight'
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+MOSAiC-ACA_P5_RF04:
+  comment: 'test flight'
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+MOSAiC-ACA_P5_RF05:
+  comment: 'only over ocean'
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+MOSAiC-ACA_P5_RF06:
+  comment: 'only over ocean'
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+MOSAiC-ACA_P5_RF07:
+  comment: ''
+  dsd:
+  - - MOSAiC-ACA_P5_RF07_05
+    - 9999
+    - 740
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_202009071245
+    - 740
+    - 0
+MOSAiC-ACA_P5_RF08:
+  comment: ''
+  dsd:
+  - - MOSAiC-ACA_P5_RF08_04
+    - 9999
+    - 770
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_202009081256
+    - 770
+    - 0
+MOSAiC-ACA_P5_RF09:
+  comment: ''
+  dsd:
+  - - MOSAiC-ACA_P5_RF09_05
+    - 9999
+    - 710
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_202009101253
+    - 710
+    - 0
+MOSAiC-ACA_P5_RF10:
+  comment: ''
+  dsd:
+  - - MOSAiC-ACA_P5_RF10_07
+    - 9999
+    - 720
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_202009111247
+    - 720
+    - 0
+MOSAiC-ACA_P5_RF11:
+  comment: ''
+  dsd:
+  - - MOSAiC-ACA_P5_RF11_05
+    - 9999
+    - 640
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_202009131246
+    - 640
+    - 0
+HALO-AC3_P5_RF01:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF02:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF03:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF04:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF05:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF06:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF07:
+  comment: ''
+  dsd:
+  - - HALO-AC3_P5_RF07_04
+    - 9999
+    - 730
+  nbm: null
+  rsd:
+  - - radiosonde_ny_alesund_202203291057
+    - 730
+    - 0
+HALO-AC3_P5_RF08:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF09:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF10:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF11:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF12:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_P5_RF13:
+  comment: ''
+  dsd: null
+  nbm: null
+  rsd:
+  - - radiosonde
+    - 9999
+    - 0
+HALO-AC3_HALO_RF10:
+  comment: 'Same as for HALO-AC3_P5_RF07. Reads wrong radiosonde by default!'
+  dsd:
+  - - HALO-AC3_P5_RF07_04
+    - 9999
+    - 730
+  nbm: null
+  rsd:
+  - - 2022-03-29 12:00:00
+    - 730
+    - 0

@@ -1,0 +1,12 @@
+# This file contains coordiantes of case studies.
+# p1 and p2 denote start and end points of the flight track, for which
+# satellite imagery will be cropped (longitude, latitude).
+# crop width defines the size of the satellite crop in meters
+aflux_rf08_case:
+  p1: [4.28280142, 81.01413872]
+  p2: [4.91059094, 81.01035465]
+  crop_width: 2500
+aflux_rf08_lead:
+  p1: [5, 80.52]
+  p2: [5, 80.88]
+  crop_width: 10000
