@@ -143,6 +143,8 @@ def find_closest(time, flight_id, prefix="no_annot_60_fish_eye"):
     dt: time difference between camera phot and input time stamp
     """
 
+    time = pd.Timestamp(time)
+
     mission, platform, name = flight_id.split("_")
 
     files = sorted(

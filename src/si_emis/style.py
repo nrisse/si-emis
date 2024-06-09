@@ -96,11 +96,11 @@ mirac_pol_text = {
 
 # research flight colors
 flight_colors = {
-    "ACLOUD_P5_RF23": cmc.batlow(np.linspace(0, 0.3, 3))[1],
-    "ACLOUD_P5_RF25": cmc.batlow(np.linspace(0, 0.3, 3))[2],
-    "AFLUX_P5_RF08": cmc.batlow(np.linspace(0.5, 0.8, 3))[0],
-    "AFLUX_P5_RF14": cmc.batlow(np.linspace(0.5, 0.8, 3))[1],
-    "AFLUX_P5_RF15": cmc.batlow(np.linspace(0.5, 0.8, 3))[2],
+    "ACLOUD_P5_RF23": cmc.oleron(np.linspace(0, 1, 6))[0],
+    "ACLOUD_P5_RF25": cmc.oleron(np.linspace(0, 1, 6))[2],
+    "AFLUX_P5_RF08": cmc.oleron(np.linspace(0, 1, 6))[3],
+    "AFLUX_P5_RF14": cmc.oleron(np.linspace(0, 1, 6))[4],
+    "AFLUX_P5_RF15": cmc.oleron(np.linspace(0, 1, 6))[5],
 }
 
 # radiometers: MiRAC-A + MiRAC-P

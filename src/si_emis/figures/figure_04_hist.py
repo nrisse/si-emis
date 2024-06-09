@@ -63,6 +63,10 @@ def main():
     # read band pass information
     ds_bp = read_band_pass_combination("MiRAC-A", "MiRAC-P")
 
+    # check if histogram differs when using all samples or only samples with
+    # footprint matching
+    test_sample_effect(ds_bp)
+
     # read emissivity dataset for list of flights
     ds, dct_fi = airborne_emissivity_merged(
         flight_ids=[
@@ -74,19 +78,6 @@ def main():
         ],
         filter_kwargs=dict(drop_times=True, dtb_keep_tb=True),
     )
-
-    # plot histograms when the same samples are used
-    # reduce dataset to specific channels and surface reflection
-    #ds = ds.sel(surf_refl="L")
-
-    # match MiRAC-A and MiRAC-P spatially and temporally
-    #ds = match_miracs(ds)
-
-    # drop times when emissivity is nan in any channel
-    #ds = ds.sel(time=~ds.e.sel(channel=[1, 8]).isnull().any("channel"))
-
-    # add surf refl
-    #ds["e"] = ds["e"].expand_dims("surf_refl")
 
     # calculate total flight distance
     flight_distance(ds)
@@ -210,6 +201,128 @@ def main():
     )
 
 
+def test_sample_effect(ds_bp):
+    """
+    Two samples can be used to analyze the emissivity distribution:
+    
+    1) All samples without footprint matching.
+    2) Only samples with footprint matching and emissivity at the same time.
+
+    We compare the two distributions with a QQ plot considering the emissivity
+    uncertainty of the two distributions.
+    """
+
+    for mission in ["acloud", "aflux"]:
+
+        if mission == "acloud":
+            flight_ids = ["ACLOUD_P5_RF23", "ACLOUD_P5_RF25"]
+        else:
+            flight_ids = ["AFLUX_P5_RF08", "AFLUX_P5_RF14", "AFLUX_P5_RF15"]
+
+        # read emissivity dataset for list of flights
+        ds, dct_fi = airborne_emissivity_merged(
+            flight_ids=flight_ids,
+            filter_kwargs=dict(drop_times=True, dtb_keep_tb=True),
+        )
+
+        # keep the data without footprint matching
+        ds1 = ds.copy()
+
+        # plot histograms when the same samples are used
+        # reduce dataset to specific channels and surface reflection
+        ds = ds.sel(surf_refl="L")
+
+        # match MiRAC-A and MiRAC-P spatially and temporally
+        ds = match_miracs(ds)
+
+        # drop times when emissivity is nan in any channel
+        ds = ds.sel(time=~ds.e.sel(channel=[1, 8]).isnull().any("channel"))
+
+        # add surf refl
+        ds["e"] = ds["e"].expand_dims("surf_refl")
+
+        ds2 = ds.copy()
+
+        # plot histograms and qq-plot for these channels
+        fig, axes = plt.subplots(2, 4, figsize=(8, 4), sharey="row", sharex="col")
+
+        axes_hist = axes[0, :]
+        axes_qq = axes[1, :]
+
+        for i, ax in enumerate(axes.flatten()):
+            ax.annotate(
+                f"({string.ascii_lowercase[i]})",
+                xy=(0.02, 0.98),
+                xycoords="axes fraction",
+                ha="left",
+                va="top",
+            )
+
+        for i, channel in enumerate([1, 7, 8, 9]):
+
+            # annotate channel name
+            axes_hist[i].annotate(
+                ds_bp.label_pol.sel(channel=channel).item(),
+                xy=(0.5, 1),
+                xycoords="axes fraction",
+                ha="center",
+                va="bottom",
+            )
+
+            x1 = ds1.e.sel(channel=channel, surf_refl="L").values
+            x1 = x1[~np.isnan(x1)]
+
+            x2 = ds2.e.sel(channel=channel, surf_refl="L").values
+            x2 = x2[~np.isnan(x2)]
+
+            if len(x1) == 0 or len(x2) == 0:
+                continue
+                
+            q1 = np.quantile(x1, q=np.linspace(0, 1, 101))
+            q2 = np.quantile(x2, q=np.linspace(0, 1, 101))
+
+            # plot histogram
+            bins = np.arange(0, 1.11, 0.025)
+            axes_hist[i].hist(x1, bins=bins, alpha=0.5, label="all", density=True)
+            axes_hist[i].hist(x2, bins=bins, alpha=0.5, label="matched", density=True)
+
+            # plot qq
+            axes_qq[i].scatter(q1, q2, s=10, lw=0, label="quantiles", zorder=2)
+
+            # set aspect ratio
+            axes_qq[i].set_aspect("equal")
+
+            # plot 1:1 line
+            axes_qq[i].plot([0, 1], [0, 1], color="k", linewidth=0.75, zorder=0)
+
+            # plot mean uncertainty for quantile bin
+            # for the first dataset
+            q1_edges = np.concatenate([q1[:1] - 0.5 * (q1[1] - q1[0]), q1])
+            u1 = ds1.e_unc.sel(channel=channel, surf_refl="L").groupby_bins(group=ds1.e.sel(surf_refl="L", channel=channel), bins=q1_edges).mean()
+            axes_qq[i].plot(q1 + u1, q1, color="k", linestyle="--", linewidth=0.75, label="unc. all", zorder=1)
+            axes_qq[i].plot(q1 - u1, q1, color="k", linestyle="--", linewidth=0.75, zorder=1)
+
+            # for the second dataset
+            q2_edges = np.concatenate([q2[:1] - 0.5 * (q2[1] - q2[0]), q2])
+            u2 = ds2.e_unc.sel(channel=channel).groupby_bins(group=ds2.e.sel(surf_refl="L", channel=channel), bins=q2_edges).mean()
+            axes_qq[i].plot(q2, q2 + u2, color="gray", linestyle="--", linewidth=0.75, label="unc. matched", zorder=1)
+            axes_qq[i].plot(q2, q2 - u2, color="gray", linestyle="--", linewidth=0.75, zorder=1)
+
+            axes_qq[i].set_xlim(0.5, 1)
+            axes_qq[i].set_ylim(0.5, 1)
+
+        # legends
+        axes_hist[0].legend(loc="upper right", frameon=False, fontsize=7)
+        axes_qq[0].legend(loc="lower right", frameon=False, fontsize=7)
+
+        # add axis labels
+        axes_hist[0].set_ylabel("Density")
+        axes_qq[0].set_xlabel("Emissivity (all)")
+        axes_qq[0].set_ylabel("Emissivity (matched)")
+
+        write_figure(fig, f"hist_qq_plot_emissivity_{mission}.png")
+
+
 def flight_distance(ds):
     """
     Calculate flight distance
@@ -319,7 +432,8 @@ def plot_histogram(
                 label=flight_id.replace("_P5_", " "),
                 bottom=bottom,
                 align="center",
-                linewidth=0,
+                linewidth=0.25,
+                edgecolor="darkgray",
                 color=flight_colors[flight_id],
                 zorder=0,
             )
@@ -341,7 +455,8 @@ def plot_histogram(
                 label=flight_id.replace("_P5_", " "),
                 bottom=bottom,
                 align="center",
-                linewidth=0,
+                linewidth=0.25,
+                edgecolor="k",
                 color=flight_colors[flight_id],
                 zorder=1,
                 alpha=0.5,

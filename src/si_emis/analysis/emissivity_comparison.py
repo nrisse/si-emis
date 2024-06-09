@@ -135,6 +135,16 @@ COMPARE = {
     "89_amsr2h": [
         dict(ac=1, ins="AMSR2", sat="GCOM-W", sc=14, a0=0, a1=90),
     ],
+    "89_ssmisv": [
+        dict(ac=1, ins="SSMIS", sat="DMSP-F16", sc=17, a0=0, a1=90),
+        dict(ac=1, ins="SSMIS", sat="DMSP-F17", sc=17, a0=0, a1=90),
+        dict(ac=1, ins="SSMIS", sat="DMSP-F18", sc=17, a0=0, a1=90),
+    ],
+    "89_ssmish": [
+        dict(ac=1, ins="SSMIS", sat="DMSP-F16", sc=18, a0=0, a1=90),
+        dict(ac=1, ins="SSMIS", sat="DMSP-F17", sc=18, a0=0, a1=90),
+        dict(ac=1, ins="SSMIS", sat="DMSP-F18", sc=18, a0=0, a1=90),
+    ],
     "243_160_all": [
         dict(ac=8, ins="SSMIS", sat="DMSP-F16", sc=8, a0=0, a1=90),
         dict(ac=8, ins="SSMIS", sat="DMSP-F17", sc=8, a0=0, a1=90),

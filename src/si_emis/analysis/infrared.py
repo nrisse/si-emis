@@ -14,7 +14,7 @@ from lizard.readers.era5 import read_era5_single_levels
 from lizard.readers.footprint import read_footprint
 from scipy.stats import gaussian_kde
 
-from si_emis.data_preparation.radiance import IR_EMISSIVITY
+from si_emis.data_preparation.radiance import IR_EMISSIVITY, gray_body_temp
 from si_emis.data_preparation.satellite import surftemp2sat
 from si_emis.readers.ne23 import read_esa_cmems
 from si_emis.retrieval.pamsim import select_times
@@ -150,7 +150,7 @@ def get_kt19(flight_id):
     ds_fpr = read_footprint(flight_id)
 
     # combine kt-19 and footprint
-    ds_fpr["ts"] = da_ts / IR_EMISSIVITY
+    ds_fpr["ts"] = gray_body_temp(t_blackbody=da_ts, emissivity=IR_EMISSIVITY)
 
     # reduce to clear-sky segments used for emissivity calculation
     ds_fpr = select_times(ds_fpr, times=times[flight_id])

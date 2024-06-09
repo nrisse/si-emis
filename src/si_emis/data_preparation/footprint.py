@@ -127,6 +127,7 @@ def footprint_location(flight_id, viewing_angles=(0, -25)):
         mask = dict(time=ds["land_mask"][:, i] == 1)
         if mask["time"].sum() > 0:
             ft = FootprintTerrain(
+                mission=mission,
                 alpha=0,
                 beta=viewing_angle,
                 heading=ds["ac_heading"].sel(**mask).values,
@@ -314,14 +315,14 @@ if __name__ == "__main__":
         "--mission",
         help="mission name",
         type=str,
-        choices=["ACLOUD", "AFLUX", "MOSAiC-ACA", "HALO-AC3"],
+        choices=["ACLOUD", "AFLUX", "MOSAiC-ACA", "HALO-AC3", "HAMAG"],
         required=False,
     )
     parser.add_argument(
         "--platform",
         help="platform name",
         type=str,
-        choices=["P5", "HALO"],
+        choices=["P5", "HALO", "P6"],
         required=False,
     )
 

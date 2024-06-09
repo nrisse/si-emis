@@ -26,6 +26,7 @@ class FootprintTerrain(Range2Location):
 
     def __init__(
         self,
+        mission,
         alpha,
         beta,
         heading,
@@ -49,6 +50,8 @@ class FootprintTerrain(Range2Location):
         h: aircraft altitude
         rs: distance between instrument and gps sensor (default: zero)
         """
+
+        self.mission = mission
 
         self.dtm_geod_footprint = np.nan
         self.los_geod_footprint = np.nan
@@ -78,10 +81,15 @@ class FootprintTerrain(Range2Location):
             gdf_gps.to_file(file_track, crs="EPSG:25833")
 
             # extract raster along track
+            if self.mission == "HAMAG":
+                dtm_file = "data/dtm/dedc-ace-v2_60N015E_3sec/heights/60N015E_3S.ACE2"
+            else:
+                dtm_file = "data/dtm/NP_S0_DTM20/S0_DTM20.tif"
+            
             gdal.Warp(
                 file_dtm,
                 os.path.join(
-                    os.environ["PATH_SEC"], "data/dtm/NP_S0_DTM20/S0_DTM20.tif"
+                    os.environ["PATH_SEC"], dtm_file,
                 ),
                 cutlineDSName=file_track,
                 cropToCutline=True,

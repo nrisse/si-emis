@@ -188,8 +188,7 @@ def plot_profiles(flight_ids):
         write_figure(
             fig,
             os.path.join(
-                os.environ["PATH_SEC"],
-                "visualizations",
+                os.environ["PATH_PLT"],
                 "atmospheric_profile",
                 f"profile_{flight_id}",
             ),
@@ -237,7 +236,7 @@ def merged_profile(flight_ids):
         print(flight_id)
 
         # read setting of atmospheric profile
-        with open("./data_preparation/profile.yaml", "r") as f:
+        with open("./src/si_emis/data_preparation/profile.yaml", "r") as f:
             atm_setting = yaml.safe_load(f)[flight_id]
         atm_setting.pop("comment")
 
@@ -378,6 +377,17 @@ def merged_profile(flight_ids):
                 )
             )
 
+        # print lowest height with temperature and the temperature value
+        ix_missing = ds_atm[var_names["atm"][0]].isnull()
+        missing_heights = ds_atm.hgt.sel(hgt=ix_missing).values
+        print(missing_heights)
+        if len(missing_heights) > 0:
+            print("Highest missing height: {} m".format(missing_heights[-1]))
+        print(
+            "Temperature of lowest available height: {} K".format(
+                ds_atm[var_names["atm"][0]].sel(hgt=~ix_missing).values[0]
+            ))
+
         # extrapolate
         # for pressure fit logarithmic curve
         if np.any(np.isnan(ds_atm[var_names["atm"][2]])):
@@ -486,8 +496,7 @@ def view_merged_profile(flight_ids):
         write_figure(
             fig,
             os.path.join(
-                os.environ["PATH_SEC"],
-                "visualizations",
+                os.environ["PATH_PLT"],
                 "atmospheric_profile",
                 f"profile_merged_{flight_id}",
             ),
@@ -502,7 +511,13 @@ if __name__ == "__main__":
     )
     flight_ids.append("HALO-AC3_HALO_RF10")
 
-    flight_ids = ["HALO-AC3_P5_RF07", "HALO-AC3_HALO_RF10"]
+    flight_ids =[
+            "ACLOUD_P5_RF23",
+            "ACLOUD_P5_RF25",
+            "AFLUX_P5_RF08",
+            "AFLUX_P5_RF14",
+            "AFLUX_P5_RF15",
+        ]
 
     # plot_profiles(flight_ids)
     merged_profile(flight_ids)

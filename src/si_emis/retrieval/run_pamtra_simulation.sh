@@ -47,7 +47,7 @@ all_setup_names=true
 
 for flight_id in ${flight_ids[*]}; do
   echo "Time: $(date)" >>run_pamtra_simulation.log
-  python -m retrieval.pamtra.pamsim "$flight_id" "$1" \
+  python -m retrieval.pamsim "$flight_id" "$1" \
     --setup_names "${setup_names[@]}" \
     --all_setup_names $all_setup_names >>run_pamtra_simulation.log
 done

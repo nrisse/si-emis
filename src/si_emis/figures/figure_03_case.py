@@ -15,17 +15,19 @@ import cartopy.crs as ccrs
 import cmcrameri.cm as cmc
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
+import matplotlib.colors as mcolors
 import numpy as np
+import xarray as xr
 import yaml
 from cartopy import crs as ccrs
 from dotenv import load_dotenv
+from osgeo import gdal, osr
+from scipy import ndimage
+
 from lizard.ac3airlib import meta
 from lizard.readers.band_pass import read_band_pass_combination
 from lizard.readers.worldview import read_rgb
 from lizard.writers.figure_to_file import write_figure
-from osgeo import gdal, osr
-from scipy import ndimage
-
 from si_emis.data_preparation.airsat import airborne_filter
 from si_emis.figures.figure_05_kmeans import apply_kmeans
 from si_emis.readers.emissivity import read_emissivity_aircraft
@@ -52,6 +54,12 @@ def main():
 
     # read data
     ds = prepare_data()
+
+    # read mirac band pass
+    ds_bp = read_band_pass_combination()
+
+    # add label to dataset
+    ds["label"] = ds_bp.label
 
     # get variability of emissivity and tb
     statistics_print(ds)
@@ -88,12 +96,6 @@ def main():
             ]
         )
 
-    # read mirac band pass
-    ds_bp = read_band_pass_combination()
-
-    # add label to dataset
-    ds["label"] = ds_bp.label
-
     overview_plot(
         ds,
         image_dct,
@@ -129,11 +131,6 @@ def open_imagery(file):
     projcs = inproj.GetAuthorityCode("PROJCS")
     projection = ccrs.epsg(projcs)
 
-    # TODO: this was needed for sentinel image and added quickly
-    def normalize(band):
-        band_min, band_max = (band.min(), band.max())
-        return (band - band_min) / (band_max - band_min)
-
     # transpose as required for matplotlib
     ds_data = ds_data.transpose((1, 2, 0))
 
@@ -142,6 +139,16 @@ def open_imagery(file):
     ds_data[:, :, 2] = normalize(ds_data[:, :, 2])
 
     return ds, ds_data, projection, ds_gt
+
+
+def normalize(band):
+    """
+    Normalizes band to 0-1 range.
+    """
+
+    band_min, band_max = (band.min(), band.max())
+
+    return (band - band_min) / (band_max - band_min)
 
 
 def plot_imagery(ax, ds, ds_data, ds_gt):
@@ -282,7 +289,7 @@ def prepare_data():
       plotting.
     """
 
-    ds = read_emissivity_aircraft(flight_id=FLIGHT_ID)
+    ds = read_emissivity_aircraft(flight_id=FLIGHT_ID, without_offsets=False)
     ds = airborne_filter(ds, drop_times=True, dtb_keep_tb=True)
 
     # calculate distance between two points along flight track
@@ -300,15 +307,15 @@ def prepare_data():
     ds = ds.sel(surf_refl=SURF_REFL).reset_coords(drop=True)
 
     # keep only times where at least one emissivity is available
-    ds = ds.sel(time=ds.e.notnull().any("channel"))
+    ds = ds.sel(time=ds.e.notnull().any(["channel", "i_offset"]))
 
     print(ds.time[0].values)
     print(ds.time[-1].values)
 
-    print(ds.lon.min())
-    print(ds.lon.max())
-    print(ds.lat.min())
-    print(ds.lat.max())
+    print(ds.lon.min().item())
+    print(ds.lon.max().item())
+    print(ds.lat.min().item())
+    print(ds.lat.max().item())
 
     return ds
 
@@ -350,6 +357,80 @@ def statistics_print(ds):
     This function calculates simple statistics along this transect to idenfity
     the sea ice temperature and tbs.
     """
+
+    # identify, which variables causes highest uncertainty
+    no_offset = (ds.offset == 0).all("variable")
+    ds["de"] = ds.e - ds.e.sel(i_offset=no_offset).squeeze()
+    bin_edges = np.arange(-0.5, 0.5 + len(ds.offset))
+    x = np.abs(ds["de"]).idxmax("i_offset").values
+    hist = np.apply_along_axis(
+        lambda a: np.histogram(a, bins=bin_edges)[0], 0, x
+    )
+    ix_offset_max_error = hist.argmax(axis=0)
+    ix_offset_max_error = ds.offset.isel(i_offset=ix_offset_max_error)
+    print(ix_offset_max_error)
+
+    # what is the relative uncertainty for each source
+    da_rel_bias = (ds["de"] / ds["e"] * 100).mean("time")
+    da_rel_bias = da_rel_bias.sel(i_offset=~no_offset)
+
+    # add relative bias due to tb
+    da_rel_bias_tb = (
+        ds["tb_unc"] * 1 / ds["dtb"].sel(i_offset=no_offset) / ds["e"] * 100
+    ).mean("time")
+    da_rel_bias_tb["i_offset"] = np.array([7])
+
+    da_rel_bias = xr.concat([da_rel_bias, da_rel_bias_tb], dim="i_offset")
+
+    # change order to have similar variables next to each other
+    da_rel_bias = da_rel_bias.sel(i_offset=[6, 0, 5, 1, 4, 2, 7])
+
+    # do not show channels where emissivity is nan
+    da_rel_bias = da_rel_bias.sel(channel=~da_rel_bias.isnull().all("i_offset"))
+
+    fig, ax = plt.subplots(1, 1, figsize=(6, 4))
+
+    cmap = cmc.berlin
+    norm = mcolors.BoundaryNorm(np.arange(-15, 16, 2.5), cmap.N)
+    im = ax.pcolormesh(
+        np.arange(0, len(da_rel_bias.channel)),
+        np.arange(0, len(da_rel_bias.i_offset)),
+        da_rel_bias.T,
+        cmap=cmap,
+        norm=norm,
+        shading="nearest",
+    )
+    fig.colorbar(
+        im,
+        label="Relative emissivity change [%]",
+        ticks=np.arange(-15, 15.1, 5),
+        extend="both",
+    )
+
+    ax.set_xticks(np.arange(0, len(da_rel_bias.channel)))
+    ax.set_yticks(np.arange(0, len(da_rel_bias.i_offset)))
+
+    ax.set_xticklabels(list(ds.label.sel(channel=da_rel_bias.channel).values), rotation=90)
+
+    # y ticks are the uncertainties and the related offsets applied
+    rename = {"groundtemp": "$T_s$", "temp": "$T$", "relhum": "$RH$"}
+    unit = {"groundtemp": "K", "temp": "K", "relhum": "%"}
+    labels = []
+    for i in da_rel_bias.i_offset.values:
+        if i in ds.i_offset.values:
+            for v in ds.variable.values:
+                offset = ds.offset.sel(i_offset=i, variable=v).item()
+                if offset != 0:
+                    txt = f"{rename[v]}: {offset:+} {unit[v]}"
+
+        else:
+            txt = "$T_b$: 0.5 K (2.5 K at 89 GHz)"
+
+        labels.append(txt)
+
+    ax.set_yticklabels(labels)
+
+    write_figure(fig, "relative_emissivity_change_case_rf08.png")
 
     # statistics of ts, tb, and emissivity
     for d0, d1 in [[0, 11e3], [0, 7e3], [7e3, 11e3]]:
@@ -539,6 +620,7 @@ def overview_plot(
             e,
             color=mirac_cols[channel],
             s=4,
+            zorder=1,
         )
 
         ax_e[1].fill_between(
@@ -549,6 +631,7 @@ def overview_plot(
             alpha=0.4,
             lw=0,
             label="uncertainty",
+            zorder=0,
         )
 
     # tb and emissivity
@@ -573,6 +656,7 @@ def overview_plot(
             e,
             color=mirac_cols[channel],
             s=4,
+            zorder=1,
         )
 
         ax_e[i].fill_between(
@@ -583,6 +667,7 @@ def overview_plot(
             alpha=0.4,
             lw=0,
             label="uncertainty",
+            zorder=0,
         )
 
         # ticks of emissivity axis
@@ -635,9 +720,7 @@ def overview_plot(
             ha = "left"
 
         txt = f"({string.ascii_lowercase[i]})"
-        ax.annotate(
-            txt, xy=(0, 1), xycoords="axes fraction", ha=ha, va="top"
-        )
+        ax.annotate(txt, xy=(0, 1), xycoords="axes fraction", ha=ha, va="top")
 
     # add legend with channels on the right
     for i, ax in enumerate(ax_tb):

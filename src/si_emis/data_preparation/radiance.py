@@ -53,8 +53,8 @@ TIME_SHIFTS = {
     "AFLUX_P5_RF13": 3,
     "AFLUX_P5_RF14": 4,
     "AFLUX_P5_RF15": 5,
-    "HALO-AC3_P5_RF07": 0,  # TODO: specify from lagged correlations
-    "HALO-AC3_HAMP_RF10": 0,  # TODO: specify from lagged correlations
+    "HALO-AC3_P5_RF07": 0,
+    "HALO-AC3_HAMP_RF10": 0,
 }
 
 # infrared emissivity to convert KT-19 TB to surface temperature
@@ -154,7 +154,7 @@ def radiance2footprint(flight_id):
         da_ts = read_bbr(flight_id).KT19
 
         # apply infrared emissivity
-        da_ts = da_ts / IR_EMISSIVITY
+        da_ts = gray_body_temp(t_blackbody=da_ts, emissivity=IR_EMISSIVITY)
 
         match = Matching.from_flight_id(flight_id, from_angle=0, to_angle=-25)
         match.match(threshold=200, temporally=True)
@@ -188,7 +188,6 @@ def radiance2footprint(flight_id):
         ds = ds.drop("view_ang")
         ds = ds.rename({"channel_view_ang": "view_ang"})
 
-    # TODO: this needs to be verified
     elif platform == "HALO":
         # this is adapted from polar 5. the main difference is that we only
         # have the 0 degrees viewing angle on halo
@@ -221,7 +220,7 @@ def radiance2footprint(flight_id):
         da_ts = da_ts.expand_dims("view_ang", axis=1)
 
         # apply infrared emissivity
-        ds["ts"] = da_ts / IR_EMISSIVITY
+        ds["ts"] = gray_body_temp(t_blackbody=da_ts, emissivity=IR_EMISSIVITY)
 
         ds["ts"].attrs = dict(
             standard_name="surface_temperature",
@@ -280,6 +279,17 @@ def radiance2footprint(flight_id):
     )
 
     write_tb(ds, flight_id)
+
+
+def gray_body_temp(t_blackbody, emissivity):
+    """
+    Convert blackbody temperature to gray body temperature when measured with
+    thermal infrared radiometer.
+    """
+
+    t_graybody = t_blackbody / emissivity
+
+    return t_graybody
 
 
 if __name__ == "__main__":

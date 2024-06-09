@@ -77,8 +77,8 @@ NORM_S = mcolors.BoundaryNorm(
 )
 TICKS_S = np.arange(0, 0.14 + 0.01, 0.07)
 
-MAP_CONTENTS = [
-    {
+MAP_CONTENTS = {
+    "MHS_ATMS_89": {
         "compare": [
             ["ACLOUD_P5_RF23", "89_near_nadir", "1", "89 GHz", "89 GHz"],
             ["AFLUX_P5_RF08", "89_near_nadir", "1", "89 GHz", "89 GHz"],
@@ -87,7 +87,7 @@ MAP_CONTENTS = [
         ],
         "sat_header": "MHS/ATMS",
     },
-    {
+    "MHS_89": {
         "compare": [
             ["ACLOUD_P5_RF23", "89_mhs", "1", "89 GHz", "89 GHz"],
             ["AFLUX_P5_RF08", "89_mhs", "1", "89 GHz", "89 GHz"],
@@ -96,7 +96,7 @@ MAP_CONTENTS = [
         ],
         "sat_header": "MHS",
     },
-    {
+    "AMSR2_89H": {
         "compare": [
             ["ACLOUD_P5_RF23", "89_amsr2h", "1", "89 GHz", "89 GHz"],
             ["AFLUX_P5_RF08", "89_amsr2h", "1", "89 GHz", "89 GHz"],
@@ -105,7 +105,7 @@ MAP_CONTENTS = [
         ],
         "sat_header": "AMSR2",
     },
-    {
+    "MHS_ATMS_243_160_or_183_160": {
         "compare": [
             [
                 "ACLOUD_P5_RF23",
@@ -145,7 +145,7 @@ MAP_CONTENTS = [
         ],
         "sat_header": "MHS/ATMS",
     },
-    {
+    "MHS_183_160": {
         "compare": [
             [
                 "AFLUX_P5_RF08",
@@ -171,25 +171,25 @@ MAP_CONTENTS = [
         ],
         "sat_header": "MHS",
     },
-    {
+    "paper_MHS_ATMS_183_160": {
         "compare": [
             [
                 "AFLUX_P5_RF08",
-                "183_near_nadir",
+                "183_160_near_nadir",
                 "7",
                 r"183$\pm$7.5 GHz",
                 "157/165 GHz",
             ],
             [
                 "AFLUX_P5_RF14",
-                "183_near_nadir",
+                "183_160_near_nadir",
                 "7",
                 r"183$\pm$7.5 GHz",
                 "157/165 GHz",
             ],
             [
                 "AFLUX_P5_RF15",
-                "183_near_nadir",
+                "183_160_near_nadir",
                 "7",
                 r"183$\pm$7.5 GHz",
                 "157/165 GHz",
@@ -197,7 +197,57 @@ MAP_CONTENTS = [
         ],
         "sat_header": "Sat.",
     },
-]
+    "MHS_ATMS_183_183": {
+        "compare": [
+            [
+                "AFLUX_P5_RF08",
+                "183_near_nadir",
+                "7",
+                r"183$\pm$7.5 GHz",
+                r"190/183$\pm$7 GHz",
+            ],
+            [
+                "AFLUX_P5_RF14",
+                "183_near_nadir",
+                "7",
+                r"183$\pm$7.5 GHz",
+                r"190/183$\pm$7 GHz",
+            ],
+            [
+                "AFLUX_P5_RF15",
+                "183_near_nadir",
+                "7",
+                r"183$\pm$7.5 GHz",
+                r"190/183$\pm$7 GHz",
+            ],
+        ],
+        "sat_header": "Sat.",
+    },
+    "AMSR2_89H_RF23": {
+        "compare": [
+            ["ACLOUD_P5_RF23", "89_amsr2h", "1", "89H GHz", "89H GHz"],
+        ],
+        "sat_header": "AMSR2",
+    },
+    "AMSR2_89V_RF23": {
+        "compare": [
+            ["ACLOUD_P5_RF23", "89_amsr2v", "1", "89H GHz", "89V GHz"],
+        ],
+        "sat_header": "AMSR2",
+    },
+    "SSMIS_89H_RF23": {
+        "compare": [
+            ["ACLOUD_P5_RF23", "89_ssmish", "1", "89H GHz", "89H GHz"],
+        ],
+        "sat_header": "SSMIS",
+    },
+    "SSMIS_89V_RF23": {
+        "compare": [
+            ["ACLOUD_P5_RF23", "89_ssmisv", "1", "89H GHz", "89V GHz"],
+        ],
+        "sat_header": "SSMIS",
+    },
+}
 
 
 def main():
@@ -205,7 +255,18 @@ def main():
     Creates map
     """
 
-    for i, i_content in enumerate([5, 0]):
+    to_show = [
+        "paper_MHS_ATMS_183_160",
+        "MHS_ATMS_183_183",
+        "MHS_ATMS_89",
+        "AMSR2_89H_RF23",
+        "AMSR2_89V_RF23",
+        "SSMIS_89H_RF23",
+        "SSMIS_89V_RF23"
+    ]
+
+    # numbers indicate the index in the list above
+    for i, i_content in enumerate(to_show):
         print(i)
         map_subplot(map_content=MAP_CONTENTS[i_content])
 
@@ -233,6 +294,9 @@ def map_subplot(map_content):
         figsize=(width, h_w_ratio * width * nrows),
         subplot_kw=dict(projection=CRS_PROJ),
     )
+
+    if nrows == 1:
+        axes = np.array([axes])
 
     # annotate letters and numbers for easier referencing
     for i, ax in enumerate(axes.flat):
@@ -479,6 +543,11 @@ def sat_on_map(fig, axes_row, flight_id, comparison):
             zorder=5,
         )
 
+    if setup["ins"] == "AMSR2":
+        zorder_sat = 6
+    else:
+        zorder_sat = 1
+
     # aircraft high resolution
     im = axes_row[0].scatter(
         ds_ea.lon.sel(channel=setup["ac"]),
@@ -503,6 +572,7 @@ def sat_on_map(fig, axes_row, flight_id, comparison):
         norm=NORM_E,
         s=s_sat,
         transform=ccrs.PlateCarree(),
+        zorder=zorder_sat,
     )
 
     # satellite
@@ -514,6 +584,7 @@ def sat_on_map(fig, axes_row, flight_id, comparison):
         norm=NORM_E,
         s=s_sat,
         transform=ccrs.PlateCarree(),
+        zorder=zorder_sat,
     )
 
     # difference
@@ -528,6 +599,7 @@ def sat_on_map(fig, axes_row, flight_id, comparison):
         norm=NORM_D,
         s=s_sat,
         transform=ccrs.PlateCarree(),
+        zorder=zorder_sat,
     )
 
     # iqr of aircraft averaged to satellite
@@ -541,6 +613,7 @@ def sat_on_map(fig, axes_row, flight_id, comparison):
         norm=NORM_S,
         s=s_sat,
         transform=ccrs.PlateCarree(),
+        zorder=zorder_sat,
     )
 
     # add scale bar in bottom left corner

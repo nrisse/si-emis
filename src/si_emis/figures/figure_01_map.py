@@ -160,7 +160,7 @@ def main():
                 color="lightgray",
                 path_effects=[
                     mpl_pe.Stroke(
-                        linewidth=1.25,
+                        linewidth=1,
                         foreground="darkgray",
                     ),
                     mpl_pe.Normal(),
@@ -180,7 +180,7 @@ def main():
                     lw=1,
                     path_effects=[
                         mpl_pe.Stroke(
-                            linewidth=1.25,
+                            linewidth=1,
                             foreground="darkgray",
                         ),
                         mpl_pe.Normal(),
@@ -200,7 +200,7 @@ def main():
                 ds.lat,
                 color=flight_colors[flight_id],
                 path_effects=[
-                    mpl_pe.Stroke(linewidth=1.25, foreground="k"),
+                    mpl_pe.Stroke(linewidth=2, foreground="k"),
                     mpl_pe.Normal(),
                 ],
                 lw=1,
@@ -216,7 +216,7 @@ def main():
                 label=flight_id.split("_")[-1],
                 lw=1,
                 path_effects=[
-                    mpl_pe.Stroke(linewidth=1.25, foreground="k"),
+                    mpl_pe.Stroke(linewidth=2, foreground="k"),
                     mpl_pe.Normal(),
                 ],
             )

@@ -18,8 +18,6 @@ from si_emis.data_preparation.airsat import airborne_filter
 from si_emis.readers.airsat import read_airsat
 from si_emis.style import sensor_colors
 
-plt.rcParams["axes.spines.right"] = True
-
 
 def calculate_qv_emissivity(
     ds_es_merge, instrument, surf_refl, print_ratio=True
@@ -171,15 +169,10 @@ def spectral_distribution_campaign(ax, surf_refl, flight_ids):
         query_satellite(ds_es_merge, "AMSR2", 14, 0, 90).e.sel(
             surf_refl=surf_refl
         ),
-        # ds_es_merge["ea_e_mean"].sel(
-        #    ix_sat=ix89, surf_refl=surf_refl, ac_channel=1
-        # ),
-        # test for fun
         mirac_89_mhs,
         mirac_89_atms,
         mirac_89_ssmis,
         mirac_89_amsr2,
-        # end test for fun
         # 160 GHz
         query_satellite(ds_es_merge, "MHS", 2, 0, 30).e.sel(
             surf_refl=surf_refl
@@ -200,23 +193,12 @@ def spectral_distribution_campaign(ax, surf_refl, flight_ids):
         query_satellite(ds_es_merge, "SSMIS", 9, 0, 90).e.sel(
             surf_refl=surf_refl
         ),
-        # ds_es_merge["ea_e_mean"].sel(
-        #    ix_sat=ix183, surf_refl=surf_refl, ac_channel=7
-        # ),
         mirac_183_mhs,
         mirac_183_atms,
         mirac_183_ssmis,
-        # 243
-        # ds_es_merge["ea_e_mean"].sel(
-        #    ix_sat=ix183, ac_channel=8, surf_refl=surf_refl
-        # ),
         mirac_243_mhs,
         mirac_243_atms,
         mirac_243_ssmis,
-        # 340
-        # ds_es_merge["ea_e_mean"].sel(
-        #    ix_sat=ix183, ac_channel=9, surf_refl=surf_refl
-        # ),
         mirac_340_mhs,
         mirac_340_atms,
         mirac_340_ssmis,
@@ -335,7 +317,6 @@ def spectral_distribution_campaign(ax, surf_refl, flight_ids):
         width=widths,
         color=[sensor_colors[i] for i in instruments_footprint],
         edgecolor="None",
-        alpha=0.3,
     )
     ax2.set_ylim(0, 1500)
     ax2.set_yticks(np.arange(0, 301, 150))
@@ -350,7 +331,7 @@ def spectral_distribution_campaign(ax, surf_refl, flight_ids):
     ax.set_xticks(ticks)
 
     # remove labels
-    ax.set_xticklabels(label_list, rotation=60, ha="center")
+    ax.set_xticklabels(label_list, rotation=90, ha="center")
     for i, t in enumerate(ax.xaxis.get_ticklabels()):
         t.set_color(sensor_colors[instruments[ix_unique_pos[i]]])
 
@@ -578,6 +559,8 @@ def spectral_distribution():
     Merges spectral dist plot from ACLOUD and AFLUX campaign into a single
     figure.
     """
+
+    plt.rcParams["axes.spines.right"] = True
 
     fig, axes = plt.subplots(
         2, 1, figsize=(6, 5), sharey="all", constrained_layout=True

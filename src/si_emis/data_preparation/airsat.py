@@ -381,7 +381,7 @@ def satellite_filter(ds_es, dtb_filter=True):
     ix_amsr2 = ds_es.instrument == "AMSR2"
     ix_other = ds_es.instrument != "AMSR2"
     d_amsr2 = 2500  # min distance of footprint center to shore line in meters
-    d_other = 7500
+    d_other = 8000
     mask_amsr2 = land_ocean_shore_mask(
         lon=ds_es.lon_sat.sel(ix_sat_int=ix_amsr2),
         lat=ds_es.lat_sat.sel(ix_sat_int=ix_amsr2),

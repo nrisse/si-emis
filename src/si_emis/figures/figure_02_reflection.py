@@ -3,14 +3,17 @@ Estimate the impact of surface reflection type on the derived emissivity and
 brightness temperature at 183 GHz.
 """
 
+import string
+
 import cmcrameri.cm as cmc
+import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
-from lizard.readers.band_pass import read_band_pass_combination
-from lizard.writers.figure_to_file import write_figure
 from xhistogram.xarray import histogram
 
+from lizard.readers.band_pass import read_band_pass_combination
+from lizard.writers.figure_to_file import write_figure
 from si_emis.figures.figure_04_hist import airborne_emissivity_merged
 from si_emis.readers.emissivity import read_emissivity_aircraft
 from si_emis.retrieval.emissivity import (
@@ -35,6 +38,8 @@ def main():
     183 GHz.
     """
 
+    ds_bp = read_band_pass_combination("MiRAC-A", "MiRAC-P")
+
     flight_ids_aflux = ["AFLUX_P5_RF08", "AFLUX_P5_RF14", "AFLUX_P5_RF15"]
     flight_ids_acloud = ["ACLOUD_P5_RF23", "ACLOUD_P5_RF25"]
 
@@ -48,6 +53,8 @@ def main():
         without_offsets=False,
     )
 
+    ds["label"] = ds_bp.label
+
     ds["tb_sim"] = tb_equation(
         e=ds.e.sel(channel=7).reset_coords(drop=True),
         tb_e0=ds.tb_e0,
@@ -59,6 +66,16 @@ def main():
         channel=CH_CENTER
     )
 
+    # calculate histogram
+    bias_bins = np.arange(-10, 10.5, 0.5)
+
+    da_hist = histogram(
+        ds["tb_bias"], bins=bias_bins, dim=["time"], density=True
+    )
+
+    # to avoid lines visible at the bottom
+    da_hist = da_hist.where(da_hist > 0, -1)
+
     # plot time series
     time_series(ds, i_offset=0)
     time_series(ds, i_offset=1)
@@ -69,11 +86,14 @@ def main():
     time_series(ds, i_offset=6)
 
     # plot histograms
-    plot_histograms(ds)
+    plot_histograms(ds, da_hist)
 
     emissivity_difference(ds)
 
     tb_difference(ds)
+
+    # scatter plot
+    plot_scatter(ds, da_hist)
 
 
 def tb_difference(ds):
@@ -129,7 +149,7 @@ def tb_difference(ds):
     ax.set_xlim(left=0)
 
 
-def emissivity_difference(ds):
+def emissivity_difference():
     """
     Difference between Lambertian and specular emissivity for every channel as
     a function of Lambertian emissivity. This shows, how much emissivity
@@ -140,21 +160,93 @@ def emissivity_difference(ds):
     ds: emissivity dataset from Polar 5
     """
 
-    fig, ax = plt.subplots(1, 1, figsize=(5, 4))
+    # read only the emissivity that is within surface sensitivity threshold
+    ds_bp = read_band_pass_combination("MiRAC-A", "MiRAC-P")
+
+    ds_acloud, dct_flights = airborne_emissivity_merged(
+        flight_ids=["ACLOUD_P5_RF23", "ACLOUD_P5_RF25"],
+        filter_kwargs=dict(
+            dtb_filter=True, drop_times=True, angle_filter=True
+        ),
+        without_offsets=False,
+    )
+    ds_acloud["label"] = ds_bp.label
+
+    ds_aflux, dct_flights = airborne_emissivity_merged(
+        flight_ids=["AFLUX_P5_RF08", "AFLUX_P5_RF14", "AFLUX_P5_RF15"],
+        filter_kwargs=dict(
+            dtb_filter=True, drop_times=True, angle_filter=True
+        ),
+        without_offsets=False,
+    )
+    ds_aflux["label"] = ds_bp.label
+
+    fig, (ax1, ax2) = plt.subplots(
+        1, 2, figsize=(7, 4), sharey=True, sharex=True
+    )
+
+    ax1.set_title("ACLOUD")
+    ax2.set_title("AFLUX")
+
+    ax1.annotate(
+        "(a)", xy=(1, 1), xycoords="axes fraction", ha="right", va="top"
+    )
+    ax2.annotate(
+        "(b)", xy=(1, 1), xycoords="axes fraction", ha="right", va="top"
+    )
 
     for channel in [1, 7, 8, 9]:
         kwds = dict(i_offset=3, channel=channel)
 
-        ax.scatter(
-            ds.e.sel(surf_refl="L", **kwds),
-            ds.e.sel(surf_refl="S", **kwds) - ds.e.sel(surf_refl="L", **kwds),
+        ax1.scatter(
+            ds_acloud.e.sel(surf_refl="L", **kwds),
+            (
+                ds_acloud.e.sel(surf_refl="S", **kwds)
+                - ds_acloud.e.sel(surf_refl="L", **kwds)
+            )
+            / ds_acloud.e.sel(surf_refl="L", **kwds)
+            * 100,
             color=mirac_cols[channel],
+            label=ds_acloud.label.sel(channel=channel).item(),
+            alpha=0.5,
+            lw=0,
+            s=20,
         )
 
-    ax.set_xlabel("$e_L$")
-    ax.set_ylabel("$e_s$ - $e_L$")
+        ax2.scatter(
+            ds_aflux.e.sel(surf_refl="L", **kwds),
+            (
+                ds_aflux.e.sel(surf_refl="S", **kwds)
+                - ds_aflux.e.sel(surf_refl="L", **kwds)
+            )
+            / ds_aflux.e.sel(surf_refl="L", **kwds)
+            * 100,
+            color=mirac_cols[channel],
+            label=ds_aflux.label.sel(channel=channel).item(),
+            alpha=0.5,
+            lw=0,
+            s=20,
+        )
 
-    ax.set_ylim(bottom=0)
+    ax1.set_xlabel("$e_L$")
+    ax2.set_xlabel("$e_L$")
+    ax1.set_ylabel("($e_s$ - $e_L$) / $e_L$ [%]")
+
+    ax1.set_ylim(0, 18)
+    ax1.set_xlim(0.5, 1)
+
+    ax1.legend(frameon=False)
+
+    ax1.grid()
+    ax2.grid()
+
+    ax1.set_yticks(ticks=np.arange(0, 19, 3))
+    ax1.set_yticks(ticks=np.arange(0, 18), minor=True)
+
+    ax1.set_xticks(ticks=np.arange(0.5, 1.01, 0.1))
+    ax1.set_xticks(ticks=np.arange(0.5, 1.01, 0.025), minor=True)
+
+    write_figure(fig, "spec_lamb_emissivity_difference.png")
 
 
 def time_series(ds_tb, i_offset):
@@ -270,7 +362,7 @@ def time_series(ds_tb, i_offset):
     ax3.set_xlabel("Time [UTC]")
 
 
-def plot_histograms(ds):
+def plot_histograms(ds, da_hist):
     """
     Plot difference between forward simulation based on either specular or
     Lambertian emissivity and radiative transfer and observation. The
@@ -286,15 +378,6 @@ def plot_histograms(ds):
     ----------
     ds: emissivity dataset with the calculated bias at channel 6 (183+/-5 GHz)
     """
-
-    bias_bins = np.arange(-10, 10.5, 0.5)
-
-    da_hist = histogram(
-        ds["tb_bias"], bins=bias_bins, dim=["time"], density=True
-    )
-
-    # to avoid lines visible at the bottom
-    da_hist = da_hist.where(da_hist > 0, -1)
 
     fig, ax = plt.subplots(1, 1, figsize=(5, 4))
 
@@ -358,7 +441,76 @@ def plot_histograms(ds):
     plt.close()
 
 
-def angular_dependence():
+def plot_scatter(ds, da_hist):
+    """
+    Scatter plot between the two tb estimates based on Lambertian and specular
+    emissivity. This will show the bias between the two estimates and the
+    distribution of the bias.
+    """
+
+    fig, axes = plt.subplots(2, 2, figsize=(6, 5), sharey="row", sharex=True)
+
+    cmap = cmc.batlow
+    norm = mcolors.BoundaryNorm([0, 1, 2, 3], cmap.N)
+
+    axes[0, 0].set_title("Lambertian")
+    axes[0, 1].set_title("Specular")
+
+    for i, surf_refl in enumerate(ds.surf_refl.values):
+
+        axes[0, i].annotate(
+            f"({string.ascii_lowercase[i]})",
+            xy=(1, 1),
+            xycoords="axes fraction",
+            ha="right",
+            va="top",
+        )
+        axes[1, i].annotate(
+            f"({string.ascii_lowercase[i+2]})",
+            xy=(1, 1),
+            xycoords="axes fraction",
+            ha="right",
+            va="top",
+        )
+
+        im = axes[0, i].scatter(
+            ds.tb_bias.sel(surf_refl=surf_refl, i_offset=3),
+            ds.tb.sel(channel=CH_CENTER),
+            c=ds.i_flight_id,
+            cmap=cmap,
+            norm=norm,
+            s=5,
+            lw=0,
+        )
+
+        axes[1, i].fill_between(
+            x=da_hist.tb_bias_bin,
+            y1=0,
+            y2=da_hist.sel(surf_refl=surf_refl, i_offset=3),
+            step="mid",
+            color="gray",
+        )
+
+        axes[0, i].axvline(x=0, color="k")
+        axes[1, i].axvline(x=0, color="k")
+
+    cbar = fig.colorbar(im, ax=axes[0, :], ticks=[0.5, 1.5, 2.5])
+    cbar.ax.set_yticklabels(["AFLUX RF08", "AFLUX RF14", "AFLUX RF15"])
+
+    axes[1, 0].set_xlabel("$Tb_{obs}-Tb_{sim}$ [K]")
+    axes[1, 1].set_xlabel("$Tb_{obs}-Tb_{sim}$ [K]")
+    axes[0, 0].set_ylabel("$Tb_{obs}$ [K]")
+    axes[1, 0].set_ylabel("Density [K$^{-1}$]")
+
+    axes[1, 0].set_ylim(bottom=0)
+    axes[1, 0].set_xlim(-2, 8)
+
+    write_figure(fig, "reflection_scatter.png")
+
+    plt.close()
+
+
+def angular_dependence(ds):
     """
     Look at angular dependence of bias between observation and simulation.
     It would be expected that the bias decreases with increasing angle,
